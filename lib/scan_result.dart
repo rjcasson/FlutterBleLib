@@ -16,6 +16,8 @@ abstract class _ScanResultMetadata {
 
 /// A scan result emitted by the scanning operation, containing [Peripheral] and [AdvertisementData].
 class ScanResult {
+  ScanResult({this.peripheral, this.advertisementData, this.rssi, this.isConnectable, this.overflowServiceUuids});
+
   Peripheral peripheral;
 
   /// Signal strength of the peripheral in dBm.
@@ -36,6 +38,17 @@ class ScanResult {
         isConnectable = json[_ScanResultMetadata.isConnectable],
         overflowServiceUuids = json[_ScanResultMetadata.overflowServiceUuids],
         advertisementData = AdvertisementData._fromJson(json);
+
+  /// Returns a string representation of this ScanResult in a format that
+  /// contains all its properties
+  @override
+  String toString() {
+    return 'ScanResult{peripheral: $peripheral,'
+        ' rssi: $rssi,'
+        ' isConnectable:$isConnectable,'
+        ' overflowServiceUuids:$overflowServiceUuids,'
+        ' advertisementData: $advertisementData}';
+  }
 }
 
 /// Data advertised by the [Peripheral]: power level, local name,
@@ -88,4 +101,16 @@ class AdvertisementData {
 
   static List<String> _mapToListOfStringsOrNull(List<dynamic> values) =>
       values?.cast();
+
+  /// Returns a string representation of the AdvertisementData in a format that
+  /// contains all its properties and services
+  @override
+  String toString() {
+    return 'AdvertisementData{localName: $localName,'
+        ' txPowerLevel: $txPowerLevel,'
+        ' manufacturerData: $manufacturerData,'
+        ' serviceData: $serviceData,'
+        ' serviceUuids: $serviceUuids,'
+        ' solicitedServiceUuids:$solicitedServiceUuids}';
+  }
 }

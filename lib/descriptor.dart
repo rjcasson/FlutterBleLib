@@ -48,6 +48,13 @@ class Descriptor extends InternalDescriptor {
       _manager.hashCode ^
       characteristic.hashCode ^
       uuid.hashCode;
+
+  /// Returns a string representation of this Descriptor
+  @override
+  String toString() {
+    return 'Descriptor{characteristic: ${characteristic.uuid},'
+        ' uuid: $uuid}';
+  }
 }
 
 class DescriptorWithValue extends Descriptor with WithValue {
@@ -57,5 +64,11 @@ class DescriptorWithValue extends Descriptor with WithValue {
     ManagerForDescriptor manager,
   ) : super.fromJson(jsonObject, characteristic, manager) {
     value = base64Decode(jsonObject[_DescriptorMetadata.value]);
+  }
+
+  @override
+  String toString() {
+    return super.toString() +
+        ' DescriptorWithValue{value = ${value.toString()}';
   }
 }
